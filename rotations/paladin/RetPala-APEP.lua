@@ -11,11 +11,14 @@ local inCombat = {
     --------------------------------
     {"Seal of Truth", "exists && spell.ready && stance != 1 && player.area_range(8).enemies <= 3", "target"},
     {"Seal of Righteousness", "exists && spell.ready && stance != 2 && player.area_range(8).enemies >= 4", "target"},
+	--------------------------------
+	{"Rebuke", "spell.ready && inmelee && target.interruptible", "target"},
+	{"Fist of Justice", "spell.ready && spell.range && target.interruptible && spell(Rebuke).cooldown", "target"},
     --------------------------------
 	{"Divine Storm", "exists && spell.ready && player.area_range(8).enemies >= 3", "target"}, -- 3 or more
 	{"Templar's Verdict", "spell.ready && {player.holy.power >= 3 || spell.proc}", "target"},
     {"Inquisition", "spell.ready && player.holy.power >= 3 && !buff || buff.duration <=5", "player"},
-	{"Exorcism", "exists && spell.ready", "target"},
+	{"Exorcism", "spell.ready && spell.range", "target"},
     {"Execution Sentence", "exists && spell.ready", "target"},
     {"Hammer of Wrath", "exists && spell.ready", "target"},
     {"Hammer of the Righteous", "exists && spell.ready && player.area_range(8).enemies >= 3", "target"}, -- 3 or more
@@ -24,7 +27,10 @@ local inCombat = {
 	{"Divine Protection", "exists && spell.ready", "target"},
 }
 
-local outCombat = {}
+local outCombat = {
+	--{"Blessing of Kings", "spell.ready && !buff", "player"},
+}
+	
 
 _A.CR:Add(70, {
     name = "Retribution Paladin",
