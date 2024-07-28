@@ -14,33 +14,41 @@ local inCombat = {
     {"Cat Form", "spell.ready && !buff", "player"},
 	
     ------DEF.
-    {"Healing Touch", "spell.ready && buff(Predatory Swiftness) && player.health < 70", "player"},
+    {"Healing Touch", "spell.ready && buff(Predatory Swiftness) && player.health <= 100", "player"},
     {"Barkskin", "spell.ready && health < 60", "player"},
     {"Survival Instincts", "spell.ready && health < 35", "player"},
     {"Might of Ursoc", "spell.ready && health < 30", "player"},
 	
 	------INTERRUPT
 	{"Skull Bash", "spell.ready && target.interruptible", "target"},
+	{"Mighty Bash", "spell.ready && target.interruptible && spell(Skull Bash).cooldown", "target"},
 	
 	------ENHANCEMENTS
-	--{"Savage Roar", "spell.ready && target.combo >= 3 && player.buff(Savage Roar).duration < 3", "player"},
-	--{"Tiger's Fury", "spell.ready && energy <= 20", "player"},
+	{"Savage Roar", "spell.ready && target.combo >= 3 && player.buff(Savage Roar).duration < 2", "player"},
+	{"Tiger's Fury", "spell.ready && energy <= 30", "player"},
 	{"Berserk", "spell.ready && inmelee && target.boss", "target"},
 	
     ------DPS
-	--{"Faerie Fire", "spell.ready && range(2) <= 35 && !target.debuff(Weakened Armor)", "target"},
-	--{"Swipe", "spell.ready && energy >= 60 && player.area_range(8).enemies >= 3", "player"},
-	--{"Rake", "spell.ready && inmelee && target.debuff(Rake).duration < 2", "target"},
 	{"Rip", "spell.ready && inmelee && target.combo == 5 && target.debuff(Rip).duration < 3", "target"},
-	--{"Ferocious Bite", "spell.ready && inmelee && combo=5", "target"},--ORIGINAL
-	{"Ferocious Bite", "spell.ready && energy >= 50 && target.combo == 5 && !target.debuff(Rip).duration < 2", "target"},
-	--{"Thrash", "spell.ready && energy >= 70 && !target.debuff(Weakened Blows)", "player"},
-    --{"Mangle", "spell.ready && inmelee", "target"},
-	--{"Shred", "spell.ready && player.behind && energy >= 60 && player.buff(Berserk)", "target"},
+	{"Ferocious Bite", "spell.ready && target.combo == 5 && player.energy >= 30 && target.health < 25 && target.debuff(Rip).duration > 5", "target"},
+	{"Ferocious Bite", "spell.ready && inmelee && combo=5 && !target.debuff(Rip).duration <3", "target"}, --ORIGINAL
+	{"Rake", "spell.ready && inmelee && player.energy >= 35 && target.debuff(Rake).duration < 2", "target"},
+	{"Shred", "spell.ready && behind && player.energy >= 30 && !target.combo == 5 && player.buff(Berserk)", "target"},
+	{"Faerie Fire", "spell.ready && range(2) <= 35 && !target.debuff(Weakened Armor)", "target"},
+	{"Swipe", "spell.ready && energy >= 60 && player.area_range(8).enemies >= 3", "player"},
+	{"Thrash", "spell.ready && inmelee && player.buff(Clearcasting) && !target.debuff(Thrash)", "player"}, --WORKING
+	{"Shred", "spell.ready && behind && player.energy >= 30 && !target.combo == 5 && player.buff(Clearcasting)", "target"},
+	{"Mangle", "spell.ready && inmelee && !target.combo == 5", "target"},
 }
-
-local outCombat = {}
-
+	--
+	--WORKING SPELLS (BACK UP)
+	--{"Ferocious Bite", "spell.ready && inmelee && combo=5 && !target.debuff(Rip).duration <3", "target"},--ORIGINAL
+    --{"Thrash", "spell.ready && player.buff(Clearcasting) || energy > 70 && !target.debuff(Thrash)", "player"}, --FOR OBSERVATION
+	
+local outCombat = {
+	{"Mark of the Wild", "spell.ready && !buff", "player"},
+}
+	
 _A.CR:Add(103, {
     name = "FERAL",
     ic = inCombat,
