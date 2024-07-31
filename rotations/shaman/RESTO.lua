@@ -8,13 +8,13 @@ local inCombat = {
     {"Water Shield", "spell.ready && !buff", "player"},
     {"Earthliving Weapon", "spell.ready && !hasEnchant", "player"},
     ------------
-	{"/use Healthstone", "item(Healthstone).count>0 && item(Healthstone).usable && health < 50", "player"},
-    {"Mana Tide Totem", "spell.ready && mana < 50", "player"},
+    {"Healthstone", "item.usable && player.hp < 40", "player"},
+    {"Mana Tide Totem", "spell.ready && mana < 75", "player"},
     {"Stormlash Totem", "spell.ready && hashero", "player"},
     {"Healing Tide Totem", "spell.ready && player.buff(Ascendance)", "player"},
-    {"Healing Stream Totem", "spell.ready && group.health <= 90", "roster"},
+    {"Healing Stream Totem", "spell.ready && group.health <= 95", "roster"},
     ------------
-    {"Ascendance", "spell.ready && group.health <= 40", "roster"},
+    {"Ascendance", "spell.ready && group.health <= 70", "roster"},
     {"Blood Fury", "spell.ready && exists", "target"},
     ------------
     {"Earth Shield", "spell.ready && spell.range && exists && !buff", "tank"},
@@ -23,7 +23,7 @@ local inCombat = {
     {"Riptide", "spell.ready && spell.range && exists && !buff.any && health < 100", "tank"},
     {"Healing Surge", "spell.ready && spell.range && health < 30", "lowest"},
     {{"Greater Healing Wave"}, "spell.ready && spell(Ancestral Swiftness).ready && spell.range && health < 50", "lowest"},
-    {"Healing Wave", "spell.ready && spell.range && player.buff(Tidal Waves) && health < 80", "lowest"},
+    {"Healing Wave", "spell.ready && spell.range && player.buff(Tidal Waves) && health < 90", "lowest"},
     {"Lightning Bolt", "spell.ready && spell.range", "nearEnemyCb"},
 }
 

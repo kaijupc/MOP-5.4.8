@@ -12,7 +12,7 @@ local inCombat = {
     ---------------
     {"Bear Form", "spell.ready && !buff", "player"},
     --{"Growl", "spell.ready && && range(2) <= 30 && threat < 80", "bestCandidateForAggro(Growl)"},
-	{"Berserk", "spell.ready && inmelee && target.boss", "target"},
+	{"Berserk", "spell.ready && target.health < 97 && target.boss", "target"},
     ---------------
 	{"Savage Defense", "spell.ready && rage >= 60 && !player.buff(Savage Defense)", "player"},
     --{"Savage Defense", "spell.ready && !buff && rage == 60", "player"},--ORIGINAL
